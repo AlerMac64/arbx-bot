@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ArbX — Crypto Arbitrage Bot</title>
+  <title>ArbX — Funding Rate Arbitrage Bot</title>
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap"
     rel="stylesheet">
@@ -824,19 +824,18 @@
     </div>
 
     <h1 class="hero-title">
-      Automated<br>
-      Crypto <em>Arbi-</em><br>
+      Funding<br>
+      Rate <em>Arbi-</em><br>
       <em>trage</em> Bot.
     </h1>
 
     <div class="hero-bottom">
       <p class="hero-sub">
-        A real-time system that detects and executes cross-exchange arbitrage opportunities automatically — scanning
-        KuCoin in real time with sub-50ms execution. Built to scale across multiple exchanges.
+        Delta-neutral positions on KuCoin — short the perpetual, long the spot — to capture funding rate yield automatically.
       </p>
       <div class="hero-ticker">
-        <div class="ticker-label">Avg. profit / trade</div>
-        <div class="ticker-val" id="profitTicker">0.87%</div>
+        <div class="ticker-label">Annualized APR</div>
+        <div class="ticker-val" id="profitTicker">18.4%</div>
       </div>
     </div>
 
@@ -850,23 +849,23 @@
   <div class="marquee-wrap">
     <div class="marquee-track">
       <span class="marquee-item"><span class="dot">◆</span>KuCoin</span>
-      <span class="marquee-item"><span class="dot">◆</span>Real-time</span>
-      <span class="marquee-item"><span class="dot">◆</span>WebSocket</span>
+      <span class="marquee-item"><span class="dot">◆</span>Funding Rate</span>
+      <span class="marquee-item"><span class="dot">◆</span>Delta-Neutral</span>
       <span class="marquee-item"><span class="dot">◆</span>Python</span>
-      <span class="marquee-item"><span class="dot">◆</span>Arbitrage</span>
+      <span class="marquee-item"><span class="dot">◆</span>Perpetuals</span>
       <span class="marquee-item"><span class="dot">◆</span>asyncio</span>
       <span class="marquee-item"><span class="dot">◆</span>PostgreSQL</span>
       <span class="marquee-item"><span class="dot">◆</span>Redis</span>
-      <span class="marquee-item"><span class="dot">◆</span>CCXT</span>
+      <span class="marquee-item"><span class="dot">◆</span>Hedged</span>
       <span class="marquee-item"><span class="dot">◆</span>KuCoin</span>
-      <span class="marquee-item"><span class="dot">◆</span>Real-time</span>
-      <span class="marquee-item"><span class="dot">◆</span>WebSocket</span>
+      <span class="marquee-item"><span class="dot">◆</span>Funding Rate</span>
+      <span class="marquee-item"><span class="dot">◆</span>Delta-Neutral</span>
       <span class="marquee-item"><span class="dot">◆</span>Python</span>
-      <span class="marquee-item"><span class="dot">◆</span>Arbitrage</span>
+      <span class="marquee-item"><span class="dot">◆</span>Perpetuals</span>
       <span class="marquee-item"><span class="dot">◆</span>asyncio</span>
       <span class="marquee-item"><span class="dot">◆</span>PostgreSQL</span>
       <span class="marquee-item"><span class="dot">◆</span>Redis</span>
-      <span class="marquee-item"><span class="dot">◆</span>CCXT</span>
+      <span class="marquee-item"><span class="dot">◆</span>Hedged</span>
     </div>
   </div>
 
@@ -875,38 +874,33 @@
     <div class="how-header reveal">
       <div>
         <div class="section-tag">/ How It Works</div>
-        <h2 class="section-title">Four steps<br>to profit.</h2>
+        <h2 class="section-title">Five steps<br>to yield.</h2>
       </div>
       <p class="how-desc">
-        The bot continuously monitors prices across exchanges, calculates the effective spread accounting for fees and
-        slippage, and automatically places orders the moment a window opens.
+        The bot screens pairs for high funding APR, opens a hedged position, maintains the delta, then exits cleanly when conditions change.
       </p>
     </div>
 
     <div class="steps">
       <div class="step reveal">
         <div class="step-num">01 —</div>
-        <div class="step-title">Scanning</div>
-        <p class="step-text">WebSocket connections to all exchanges in real time. Order book and ticker data refreshed
-          every ~100ms.</p>
+        <div class="step-title">Screening</div>
+        <p class="step-text">Monitors KuCoin pairs in real time. Triggers when annualized funding APR exceeds the configured threshold.</p>
       </div>
       <div class="step reveal reveal-delay-1">
         <div class="step-num">02 —</div>
-        <div class="step-title">Spread Analysis</div>
-        <p class="step-text">Effective price difference calculated accounting for trading fees, slippage, and market
-          depth.</p>
+        <div class="step-title">Entry</div>
+        <p class="step-text">Opens a delta-neutral position: short the perpetual future, long the same asset on spot.</p>
       </div>
       <div class="step reveal reveal-delay-2">
         <div class="step-num">03 —</div>
-        <div class="step-title">Signal</div>
-        <p class="step-text">If spread exceeds the threshold (typically 0.3%), a trade signal is generated and queued
-          instantly.</p>
+        <div class="step-title">Delta Maintenance</div>
+        <p class="step-text">Rebalances the hedge as prices drift, keeping net exposure near zero.</p>
       </div>
       <div class="step reveal reveal-delay-3">
         <div class="step-num">04 —</div>
-        <div class="step-title">Execution</div>
-        <p class="step-text">Simultaneous orders placed on both exchanges with built-in risk management and position
-          limits.</p>
+        <div class="step-title">Exit</div>
+        <p class="step-text">Closes both legs cleanly when funding drops below threshold or risk limits are hit.</p>
       </div>
     </div>
   </section>
@@ -921,30 +915,30 @@
             Live
           </div>
           <div class="stat-featured-title">KuCoin</div>
-          <div class="stat-featured-sub">Primary exchange — WebSocket connected</div>
+          <div class="stat-featured-sub">Perpetuals + Spot — real-time monitoring</div>
         </div>
         <div class="stat-featured-right">
           <div class="stat-pairs-val">200+</div>
-          <div class="stat-pairs-label">Trading pairs</div>
+          <div class="stat-pairs-label">Monitored pairs</div>
         </div>
       </div>
       <div class="stat-card reveal reveal-delay-1">
-        <div class="stat-val">&lt;40ms</div>
-        <div class="stat-label">Execution latency</div>
+        <div class="stat-val">~0</div>
+        <div class="stat-label">Net market exposure</div>
       </div>
     </div>
     <div class="stats-bottom">
       <div class="stat-card reveal reveal-delay-1">
-        <div class="stat-val">0.3–2%</div>
-        <div class="stat-label">Average trade margin</div>
+        <div class="stat-val">15–40%</div>
+        <div class="stat-label">Annualized APR range</div>
       </div>
       <div class="stat-card reveal reveal-delay-2">
         <div class="stat-val">24/7</div>
         <div class="stat-label">Autonomous operation</div>
       </div>
       <div class="stat-card reveal reveal-delay-3">
-        <div class="stat-val">∞</div>
-        <div class="stat-label">Scalable to more exchanges</div>
+        <div class="stat-val">Full</div>
+        <div class="stat-label">Pipeline — entry to exit</div>
       </div>
     </div>
   </div>
@@ -960,30 +954,28 @@
           <div class="tech-dot"></div>
           <div>
             <strong>Python 3.11 + asyncio</strong>
-            Fully async architecture for parallel exchange monitoring without blocking — handles 12 live streams
-            concurrently.
+            Fully async — parallel monitoring of funding rates, positions, and prices without blocking.
           </div>
         </li>
         <li class="tech-item">
           <div class="tech-dot"></div>
           <div>
-            <strong>CCXT + WebSocket API</strong>
-            Unified interface for exchange connectivity — currently live on KuCoin, designed to scale to any supported
-            exchange.
+            <strong>PostgreSQL</strong>
+            Full trade history: entries, exits, funding payments, P&amp;L accounting.
           </div>
         </li>
         <li class="tech-item">
           <div class="tech-dot"></div>
           <div>
-            <strong>PostgreSQL + Redis</strong>
-            Trade history persisted in Postgres; live quote cache and signal queue managed in Redis for low latency.
+            <strong>Redis</strong>
+            Live data pipeline — real-time funding rates and price feeds at low latency.
           </div>
         </li>
         <li class="tech-item">
           <div class="tech-dot"></div>
           <div>
-            <strong>Telegram Notifications</strong>
-            Real-time alerts for executed trades, errors, and periodic P&amp;L summaries via Telegram Bot API.
+            <strong>Dashboard + Notifications</strong>
+            Read-only monitoring dashboard and Telegram alerts on every key event.
           </div>
         </li>
       </ul>
@@ -993,28 +985,22 @@
           <div class="code-dot"></div>
           <div class="code-dot"></div>
           <div class="code-dot"></div>
-          <div class="code-filename">scanner.py</div>
+          <div class="code-filename">screener.py</div>
         </div>
-        <pre class="code-body"><span class="k">async def</span> <span class="f">find_opportunity</span>(<span class="n">self</span>, <span class="n">symbol</span>):
-    <span class="c"># Fetch prices from all exchanges</span>
-    <span class="n">prices</span> = <span class="k">await</span> asyncio.gather(*[
-        <span class="n">ex</span>.<span class="f">fetch_ticker</span>(<span class="s">symbol</span>)
-        <span class="k">for</span> <span class="n">ex</span> <span class="k">in</span> <span class="n">self</span>.<span class="n">exchanges</span>
-    ])
+        <pre class="code-body"><span class="k">async def</span> <span class="f">screen_pairs</span>(<span class="n">self</span>):
+    <span class="k">async for</span> <span class="n">symbol</span>, <span class="n">rate</span> <span class="k">in</span> <span class="n">self</span>.<span class="f">funding_stream</span>():
+        <span class="n">apr</span> = <span class="n">rate</span> * <span class="v">3</span> * <span class="v">365</span>  <span class="c"># 8h → annualised</span>
 
-    <span class="n">best_bid</span> = <span class="f">max</span>(<span class="n">prices</span>, <span class="n">key</span>=<span class="k">lambda</span> <span class="n">x</span>: <span class="n">x</span>[<span class="s">'bid'</span>])
-    <span class="n">best_ask</span> = <span class="f">min</span>(<span class="n">prices</span>, <span class="n">key</span>=<span class="k">lambda</span> <span class="n">x</span>: <span class="n">x</span>[<span class="s">'ask'</span>])
+        <span class="k">if</span> <span class="n">apr</span> > <span class="n">self</span>.<span class="n">MIN_APR</span>:
+            <span class="k">await</span> <span class="n">self</span>.<span class="f">open_position</span>(
+                <span class="n">symbol</span> = <span class="n">symbol</span>,
+                <span class="n">short</span>  = <span class="s">'perp'</span>,
+                <span class="n">long</span>   = <span class="s">'spot'</span>,
+                <span class="n">apr</span>    = <span class="n">apr</span>
+            )
 
-    <span class="n">spread</span> = (
-        <span class="n">best_bid</span>[<span class="s">'bid'</span>] - <span class="n">best_ask</span>[<span class="s">'ask'</span>]
-    ) / <span class="n">best_ask</span>[<span class="s">'ask'</span>]
-
-    <span class="k">if</span> <span class="n">spread</span> > <span class="v">self</span>.<span class="n">MIN_SPREAD</span>:
-        <span class="k">await</span> <span class="n">self</span>.<span class="f">execute_trade</span>(
-            <span class="n">buy_on</span>  = <span class="n">best_ask</span>[<span class="s">'exchange'</span>],
-            <span class="n">sell_on</span> = <span class="n">best_bid</span>[<span class="s">'exchange'</span>],
-            <span class="n">spread</span>  = <span class="n">spread</span>
-        )</pre>
+    <span class="c"># price movement cancels out —</span>
+    <span class="c"># pure funding yield remains</span></pre>
       </div>
     </div>
   </section>
@@ -1028,8 +1014,7 @@
       <em>Real results.</em>
     </h2>
     <p class="cta-sub reveal">
-      Developed as a thesis project in 2025. All core modules are fully implemented — scanner, executor, risk
-      management, and analytics dashboard.
+      Built in 2025. Full pipeline implemented — screening, entry, delta maintenance, exit, accounting, and notifications. My teammates will walk you through the code, dashboard, and test results.
     </p>
     <div class="reveal">
       <a href="#" class="cta-btn">View on GitHub →</a>
@@ -1039,7 +1024,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">ArbX.</div>
-    <div class="footer-copy">Thesis Project — 2025 · Crypto Arbitrage Bot</div>
+    <div class="footer-copy">Thesis Project — 2025 · Funding Rate Arbitrage Bot</div>
   </footer>
 
   <script>
@@ -1052,7 +1037,7 @@
     reveals.forEach(r => io.observe(r));
 
     const ticker = document.getElementById('profitTicker');
-    const vals = ['0.61%', '0.74%', '0.92%', '1.08%', '0.83%', '0.87%', '0.79%', '0.94%', '1.12%'];
+    const vals = ['18.4%', '22.1%', '15.7%', '31.2%', '19.8%', '25.5%', '17.3%', '28.6%', '21.0%'];
     let i = 0;
     setInterval(() => {
       i = (i + 1) % vals.length;
